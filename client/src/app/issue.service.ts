@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface Issue {
   title: string;
   description: string;
+  id: number;
 }
 
 @Injectable({
@@ -14,6 +15,10 @@ export class IssueService {
   constructor(private readonly httpClient: HttpClient) {}
   baseUrl = 'http://localhost:3000';
 
+  getAll(): Observable<Issue[]> {
+    return this.httpClient.get<Issue[]>(this.baseUrl);
+  }
+
   createIssue(issue: Partial<Issue>): Observable<Issue> {
     return this.httpClient.post<Issue>(this.baseUrl, { issue });
   }
@@ -22,7 +27,11 @@ export class IssueService {
     return this.httpClient.get<Issue>(`${this.baseUrl}/${id}`);
   }
 
-  updateIssue(id: number, issue: Partial<Issue>) {
+  updateIssue(id: number, issue: Partial<Issue>): Observable<Issue> {
     return this.httpClient.put<Issue>(`${this.baseUrl}/${id}`, { issue });
+  }
+
+  deleteIssue(id: number): Observable<number> {
+    return this.httpClient.delete<number>(`${this.baseUrl}/${id}`);
   }
 }

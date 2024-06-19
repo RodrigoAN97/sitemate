@@ -61,6 +61,10 @@ export class AppService {
     },
   ];
 
+  getAllIssues() {
+    return this.issues;
+  }
+
   getIssue(id: number): Issue {
     const issue = this.issues.find((i) => i.id === id);
     console.log(`Issue with id ${id} is ${JSON.stringify(issue)}`);
@@ -90,14 +94,8 @@ export class AppService {
   }
 
   deleteIssue(id: number) {
-    let deletedId = 0;
-    this.issues = this.issues.filter((i) => {
-      if (i.id === id) {
-        deletedId = id;
-      } else {
-        return;
-      }
-    });
+    const deletedId = this.issues.find((i) => i.id === id)?.id;
+    this.issues = this.issues.filter((i) => id !== i.id);
     if (deletedId > 0) {
       console.log(`Issue with id ${id} is deleted`);
     } else {

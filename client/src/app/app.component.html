@@ -5,6 +5,10 @@
   <button (click)="createIssue()" [disabled]="createIssueForm.invalid">
     Create Issue
   </button>
+  <div *ngIf="createdIssueSub | async as issue">
+    Issue with id: {{ issueIdControl.value }}
+    {{ issue | json }}
+  </div>
 </form>
 
 <div id="get-issue">
@@ -13,7 +17,7 @@
   <button (click)="getIssueById()" [disabled]="issueIdControl.invalid">
     Get Issue
   </button>
-  <div *ngIf="issueSub | async as issue">
+  <div *ngIf="getIssueSub | async as issue">
     Issue with id: {{ issueIdControl.value }}
     {{ issue | json }}
   </div>
@@ -27,4 +31,34 @@
   <button (click)="updateIssue()" [disabled]="updateIssueForm.invalid">
     Update Issue
   </button>
+  <div *ngIf="updateIssueSub | async as issue">
+    Issue with id: {{ issueIdControl.value }}
+    {{ issue | json }}
+  </div>
 </form>
+
+<div id="delete-issue">
+  <label>Delete Issue By Id</label>
+  <input
+    [formControl]="deleteIssueControl"
+    placeholder="Issue Id"
+    type="number"
+  />
+  <button (click)="deleteIssue()" [disabled]="deleteIssueControl.invalid">
+    Delete Issue
+  </button>
+  <div *ngIf="deleteIssueSub | async as id">
+    Issue with id: {{ id }} is deleted
+  </div>
+</div>
+
+<div>
+  <label>All issues</label>
+  <ng-container *ngIf="issues$ | async as issues">
+    <div *ngFor="let issue of issues">
+      ID: {{issue.id}}
+      Description: {{issue.description}}
+      Title: {{issue.title}}
+    </div>
+  </ng-container>
+</div>
