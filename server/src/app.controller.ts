@@ -24,7 +24,7 @@ export class AppController {
   }
 
   @Put(':id')
-  updateIssue(@Param('id') id: string, @Body('todos') issue: Issue): Issue {
+  updateIssue(@Param('id') id: string, @Body('issue') issue: Issue): Issue {
     return this.appService.updateIssue(Number(id), issue);
   }
 

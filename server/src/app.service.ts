@@ -69,7 +69,6 @@ export class AppService {
 
   createIssue(issue: Issue) {
     const lastId = this.issues[this.issues.length - 1].id;
-    console.log({ issue });
     issue.id = lastId + 1;
     console.log(`Creating issue: ${JSON.stringify(issue)}`);
     this.issues.push(issue);
@@ -80,8 +79,8 @@ export class AppService {
     let updatedIssue = {} as Issue;
     this.issues = this.issues.map((i) => {
       if (i.id === id) {
-        i.description = issue.description;
-        i.title = issue.title;
+        i.description = issue.description ? issue.description : i.description;
+        i.title = issue.title ? issue.title : i.title;
         updatedIssue = i;
       }
       return i;

@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+
+  #create-issue, #get-issue, #update-issue {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+  }
+}

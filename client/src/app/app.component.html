@@ -1,6 +1,30 @@
+<form [formGroup]="createIssueForm" id="create-issue">
+  <label>Create Issue</label>
+  <input type="text" formControlName="title" placeholder="Title" />
+  <input type="text" formControlName="description" placeholder="Description" />
+  <button (click)="createIssue()" [disabled]="createIssueForm.invalid">
+    Create Issue
+  </button>
+</form>
 
-<form [formGroup]="form">
-  <input type="text" formControlName="title" placeholder="Title">
-  <input type="text" formControlName="description" placeholder="Description">
-  <button (click)="createIssue()" [disabled]="form.invalid">Create Issue</button>
+<div id="get-issue">
+  <label>Get Issue By Id</label>
+  <input [formControl]="issueIdControl" placeholder="Issue Id" type="number" />
+  <button (click)="getIssueById()" [disabled]="issueIdControl.invalid">
+    Get Issue
+  </button>
+  <div *ngIf="issueSub | async as issue">
+    Issue with id: {{ issueIdControl.value }}
+    {{ issue | json }}
+  </div>
+</div>
+
+<form [formGroup]="updateIssueForm" id="update-issue">
+  <label>Update Issue</label>
+  <input type="number" formControlName="id" placeholder="Id" />
+  <input type="text" formControlName="title" placeholder="Title" />
+  <input type="text" formControlName="description" placeholder="Description" />
+  <button (click)="updateIssue()" [disabled]="updateIssueForm.invalid">
+    Update Issue
+  </button>
 </form>
