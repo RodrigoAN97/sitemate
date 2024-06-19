@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Issue, IssueService } from './issue.service';
 import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   constructor(private readonly issueService: IssueService) {
     this.issues$ = this.getAll();
   }
@@ -106,5 +106,12 @@ export class AppComponent {
     return this.reloadSub.pipe(
       switchMap(() => this.issueService.getAll())
     )
+  }
+
+  ngOnDestroy(): void {
+    this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
+    this.sub3.unsubscribe();
+    this.sub4.unsubscribe();
   }
 }
